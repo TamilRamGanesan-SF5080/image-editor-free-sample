@@ -1,0 +1,136 @@
+.bottom-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 12px 20px;
+    background: #1e1e1e;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    height: 70px;
+    overflow-x: auto;
+}
+
+/* Syncfusion Button overrides for bottom tabs */
+.bottom-tabs .e-btn.tab-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 16px;
+    min-width: 80px;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.05);
+    color: #999;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.bottom-tabs .e-btn.tab-btn:hover:not(.e-disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.bottom-tabs .e-btn.tab-btn.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    border-color: rgba(102, 126, 234, 0.5);
+    color: #fff;
+}
+
+.bottom-tabs .e-btn.tab-btn.e-disabled,
+.bottom-tabs .e-btn.tab-btn:disabled,
+.bottom-tabs .e-btn.tab-btn.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.bottom-tabs .e-btn.tab-btn .tab-icon {
+    font-size: 20px;
+}
+
+.bottom-tabs .e-btn.tab-btn .tab-label {
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.tab-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 16px;
+    min-width: 80px;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.05);
+    color: #999;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.tab-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    border-color: rgba(102, 126, 234, 0.5);
+    color: #fff;
+}
+
+.tab-btn:disabled,
+.tab-btn.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.tab-icon {
+    font-size: 20px;
+}
+
+.tab-label {
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .bottom-tabs {
+        padding: 8px 12px;
+        gap: 2px;
+        height: 60px;
+    }
+
+    .tab-btn {
+        min-width: 60px;
+        padding: 8px 12px;
+    }
+
+    .tab-icon {
+        font-size: 18px;
+    }
+
+    .tab-label {
+        font-size: 10px;
+    }
+}
+
+/* Hide scrollbar but keep functionality */
+.bottom-tabs::-webkit-scrollbar {
+    height: 4px;
+}
+
+.bottom-tabs::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.bottom-tabs::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}

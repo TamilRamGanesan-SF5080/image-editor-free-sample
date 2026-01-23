@@ -1,0 +1,141 @@
+.left-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 12px;
+    background: #1e1e1e;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    width: 90px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 8px;
+    width: 100%;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.05);
+    color: #999;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.sidebar-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transform: translateX(2px);
+}
+
+.sidebar-btn.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    border-color: rgba(102, 126, 234, 0.5);
+    color: #fff;
+}
+
+.sidebar-btn:disabled,
+.sidebar-btn.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.sidebar-icon {
+    font-size: 24px;
+}
+
+.sidebar-label {
+    font-size: 11px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* Hide scrollbar but keep functionality */
+.left-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.left-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.left-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .left-sidebar {
+        width: 70px;
+        padding: 12px 8px;
+        gap: 6px;
+    }
+
+    .sidebar-btn {
+        padding: 10px 6px;
+    }
+
+    .sidebar-icon {
+        font-size: 20px;
+    }
+
+    .sidebar-label {
+        font-size: 10px;
+    }
+}
+
+/* Syncfusion Button overrides for sidebar */
+.left-sidebar .e-btn.sidebar-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 8px;
+    width: 100%;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.05);
+    color: #999;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.left-sidebar .e-btn.sidebar-btn:hover:not(.e-disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transform: translateX(2px);
+}
+
+.left-sidebar .e-btn.sidebar-btn.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    border-color: rgba(102, 126, 234, 0.5);
+    color: #fff;
+}
+
+.left-sidebar .e-btn.sidebar-btn.e-disabled,
+.left-sidebar .e-btn.sidebar-btn:disabled,
+.left-sidebar .e-btn.sidebar-btn.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.left-sidebar .e-btn.sidebar-btn .sidebar-icon {
+    font-size: 24px;
+}
+
+.left-sidebar .e-btn.sidebar-btn .sidebar-label {
+    font-size: 11px;
+    white-space: nowrap;
+}

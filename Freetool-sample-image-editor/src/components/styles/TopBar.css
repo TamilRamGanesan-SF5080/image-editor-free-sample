@@ -1,0 +1,117 @@
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #1e1e1e;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: 60px;
+}
+
+.top-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.app-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.top-bar-center {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-bar-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+/* Syncfusion Button overrides */
+.e-btn.top-bar-btn {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border-radius: 6px;
+}
+
+.e-btn.top-bar-btn.primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+}
+
+.top-bar-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.top-bar-btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.top-bar-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.top-bar-btn.primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+}
+
+.top-bar-btn.primary:hover {
+    background: linear-gradient(135deg, #7689f0 0%, #8557b0 100%);
+}
+
+.divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 8px;
+}
+
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 8px 12px;
+        height: 50px;
+    }
+
+    .app-title {
+        font-size: 16px;
+    }
+
+    .top-bar-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .top-bar-center .top-bar-btn span {
+        display: none;
+    }
+}
