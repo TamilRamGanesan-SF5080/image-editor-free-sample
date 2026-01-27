@@ -8,8 +8,8 @@ export const useImageEditor = () => {
     const [state, setState] = useState<ImageEditorState>({
         currentTool: ToolType.NONE,
         isImageLoaded: false,
-        canUndo: false,
-        canRedo: false,
+        canUndo: true,
+        canRedo: true,
         zoomLevel: 1,
         exportFormat: 'PNG',
     });

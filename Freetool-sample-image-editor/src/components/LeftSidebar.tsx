@@ -5,13 +5,13 @@ import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 
 export const LeftSidebar = ({ currentTool, onToolChange, isImageLoaded }: BottomTabsProps) => {
     const tabs = [
-        { id: ToolType.CROP, label: 'Crop', icon: '✂️' },
-        { id: ToolType.FILTER, label: 'Filter', icon: '🎨' },
-        { id: ToolType.FINETUNE, label: 'Adjust', icon: '⚙️' },
-        { id: ToolType.ANNOTATE, label: 'Annotate', icon: '✏️' },
-        { id: ToolType.FRAME, label: 'Frame', icon: '🖼️' },
-        { id: ToolType.RESIZE, label: 'Resize', icon: '📐' },
-        { id: ToolType.REDACT, label: 'Redact', icon: '🔒' },
+        { id: ToolType.CROP, label: 'Crop', iconClass: 'e-crop' },
+        { id: ToolType.FILTER, label: 'Filter', iconClass: 'e-filters' },
+        { id: ToolType.FINETUNE, label: 'Adjust', iconClass: 'e-adjustment' },
+        { id: ToolType.ANNOTATE, label: 'Annotate', iconClass: 'e-edit' },
+        { id: ToolType.FRAME, label: 'Frame', iconClass: 'e-frame-custom' },
+        { id: ToolType.RESIZE, label: 'Resize', iconClass: 'e-resize' },
+        { id: ToolType.REDACT, label: 'Redact', iconClass: 'e-redact' },
     ];
 
     return (
@@ -24,7 +24,7 @@ export const LeftSidebar = ({ currentTool, onToolChange, isImageLoaded }: Bottom
                     disabled={!isImageLoaded}
                     title={tab.label}
                 >
-                    <span className="sidebar-icon">{tab.icon}</span>
+                    <span className={`sidebar-icon e-icons ${tab.iconClass}`} aria-hidden="true" />
                     <span className="sidebar-label">{tab.label}</span>
                 </ButtonComponent>
             ))}

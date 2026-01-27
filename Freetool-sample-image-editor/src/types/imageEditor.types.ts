@@ -13,7 +13,7 @@ export const ToolType = {
   REDACT: 'redact' as const,
 };
 
-export type AnnotationType = 'text' | 'rectangle' | 'ellipse' | 'line' | 'arrow' | 'freehand';
+export type AnnotationType = 'text' | 'rectangle' | 'ellipse' | 'line' | 'arrow' | 'freehand' | 'image';
 
 export const AnnotationType = {
   TEXT: 'text' as const,
@@ -22,6 +22,7 @@ export const AnnotationType = {
   LINE: 'line' as const,
   ARROW: 'arrow' as const,
   FREEHAND: 'freehand' as const,
+  IMAGE: 'image' as const,
 };
 
 export interface ImageEditorState {

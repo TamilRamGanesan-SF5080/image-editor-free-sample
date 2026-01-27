@@ -10,20 +10,32 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
     const [strokeColor, setStrokeColor] = useState('#FF0000');
     const [fillColor, setFillColor] = useState('transparent');
     const [strokeWidth, setStrokeWidth] = useState(3);
+
+    // Text specific
     const [text, setText] = useState('');
     const [fontSize, setFontSize] = useState(24);
     const [bold, setBold] = useState(false);
     const [italic, setItalic] = useState(false);
+
+    // Image specific
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+    const [imageWidth, setImageWidth] = useState<number>(160);
+    const [imageHeight, setImageHeight] = useState<number>(120);
+    const [preserveAspect, setPreserveAspect] = useState<boolean>(true);
+
+    // Color pickers visibility
     const [showStrokePicker, setShowStrokePicker] = useState(false);
     const [showFillPicker, setShowFillPicker] = useState(false);
 
     const annotations = [
-        { type: AnnotationType.TEXT, icon: '📝', label: 'Text' },
-        { type: AnnotationType.RECTANGLE, icon: '▭', label: 'Rectangle' },
-        { type: AnnotationType.ELLIPSE, icon: '○', label: 'Ellipse' },
-        { type: AnnotationType.LINE, icon: '─', label: 'Line' },
-        { type: AnnotationType.ARROW, icon: '→', label: 'Arrow' },
-        { type: AnnotationType.FREEHAND, icon: '✏️', label: 'Freehand' },
+        { type: AnnotationType.TEXT, iconClass: 'e-text-annotation', label: 'Text' },
+        { type: AnnotationType.RECTANGLE, iconClass: 'e-rectangle', label: 'Rectangle' },
+        { type: AnnotationType.ELLIPSE, iconClass: 'e-circle', label: 'Ellipse' },
+        { type: AnnotationType.LINE, iconClass: 'e-horizontal-line', label: 'Line' },
+        { type: AnnotationType.ARROW, iconClass: 'e-arrow-right', label: 'Arrow' },
+        { type: AnnotationType.FREEHAND, iconClass: 'e-hand-gestures', label: 'Freehand' },
+        { type: AnnotationType.IMAGE, iconClass: 'e-image', label: 'Image' }, // ← Added
     ];
 
     const getSafeEditor = () => {
@@ -40,10 +52,13 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
 
         setActiveAnnotation(type);
 
-        // Only enable freehand mode when selected
-        editor.freeHandDraw(type === AnnotationType.FREEHAND);
+        // Enable/disable freehand drawing mode
+        editor.freeHandDraw?.(type === AnnotationType.FREEHAND);
     };
 
+    // ────────────────────────────────────────────────
+    //                  TEXT HANDLER
+    // ────────────────────────────────────────────────
     const handleAddText = () => {
         const editor = getSafeEditor();
         if (!editor || !text.trim()) {
@@ -52,13 +67,9 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
         }
 
         try {
-            // Optional: position relative to visible image area
             const dim = editor.getImageDimension?.() || { x: 50, y: 50, width: 400, height: 300 };
-
-            const x = dim.x + 40;   // a bit inset from left
+            const x = dim.x + 40;
             const y = dim.y + 60;
-
-            console.log('Adding text at:', { x, y, text, fontSize, bold, italic, strokeColor });
 
             editor.drawText(
                 x,
@@ -68,18 +79,17 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                 fontSize,
                 bold,
                 italic,
-                strokeColor,          // text color
-                true,                 // isSelected — makes it editable immediately
-                0,                    // rotation degree
-                fillColor,            // background fill (can be 'transparent')
-                '#000000',            // stroke/border around letters — optional
-                1,                    // stroke width around letters
-                undefined,            // transformCollection
-                false,                // underline
-                false                 // strikethrough
+                strokeColor,    // text color
+                true,           // isSelected
+                0,              // rotation
+                fillColor,      // background
+                '#000000',      // letter border color
+                1,              // letter border width
+                undefined,
+                false,          // underline
+                false           // strikethrough
             );
 
-            console.log('Text added');
             setText('');
         } catch (error) {
             console.error('Error adding text:', error);
@@ -87,6 +97,9 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
         }
     };
 
+    // ────────────────────────────────────────────────
+    //                  SHAPE HANDLER
+    // ────────────────────────────────────────────────
     const handleAddShape = () => {
         const editor = getSafeEditor();
         if (!editor || !activeAnnotation) return;
@@ -96,68 +109,65 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
             const centerX = dim.x + dim.width / 2;
             const centerY = dim.y + dim.height / 2;
 
-            console.log(`Adding ${activeAnnotation} at center:`, { centerX, centerY });
-
             switch (activeAnnotation) {
                 case AnnotationType.RECTANGLE:
-                    editor.drawRectangle(
-                        centerX - 80,
-                        centerY - 50,
-                        160,
-                        100,
-                        strokeWidth,
-                        strokeColor,
-                        fillColor,
-                        0,       // degree
-                        true     // isSelected
-                    );
+                    editor.drawRectangle(centerX - 80, centerY - 50, 160, 100, strokeWidth, strokeColor, fillColor, 0, true);
                     break;
-
                 case AnnotationType.ELLIPSE:
-                    editor.drawEllipse(
-                        centerX,
-                        centerY,
-                        80,
-                        50,
-                        strokeWidth,
-                        strokeColor,
-                        fillColor,
-                        0,
-                        true
-                    );
+                    editor.drawEllipse(centerX, centerY, 80, 50, strokeWidth, strokeColor, fillColor, 0, true);
                     break;
-
                 case AnnotationType.LINE:
-                    editor.drawLine(
-                        centerX - 100,
-                        centerY,
-                        centerX + 100,
-                        centerY,
-                        strokeWidth,
-                        strokeColor,
-                        true
-                    );
+                    editor.drawLine(centerX - 100, centerY, centerX + 100, centerY, strokeWidth, strokeColor, true);
                     break;
-
                 case AnnotationType.ARROW:
-                    editor.drawArrow(
-                        centerX - 120,
-                        centerY,
-                        centerX + 120,
-                        centerY,
-                        strokeWidth,
-                        strokeColor,
-                        'None',   // arrowStart
-                        'Arrow',  // arrowEnd
-                        true
-                    );
+                    editor.drawArrow(centerX - 120, centerY, centerX + 120, centerY, strokeWidth, strokeColor, 'None', 'Arrow', true);
                     break;
             }
-
-            console.log('Shape added');
         } catch (error) {
             console.error('Error adding shape:', error);
             alert(`Failed to add shape: ${error}`);
+        }
+    };
+
+    // ────────────────────────────────────────────────
+    //                  IMAGE HANDLER
+    // ────────────────────────────────────────────────
+    const handleAddImage = () => {
+        const editor = getSafeEditor();
+        if (!editor || !imagePreviewUrl) {
+            alert('Please select an image first');
+            return;
+        }
+
+        try {
+            const dim = editor.getImageDimension?.() || { x: 0, y: 0, width: 400, height: 300 };
+            const centerX = dim.x + dim.width / 2 - imageWidth / 2;
+            const centerY = dim.y + dim.height / 2 - imageHeight / 2;
+
+            const success = editor.drawImage(
+                imagePreviewUrl,
+                centerX,
+                centerY,
+                imageWidth,
+                imageHeight,
+                preserveAspect,
+                0,     // rotation
+                1,     // opacity
+                true   // isSelected → shows resize handles
+            );
+
+            if (success) {
+                // Optional: reset after successful insert
+                setImageFile(null);
+                setImagePreviewUrl(null);
+                // setImageWidth(160);
+                // setImageHeight(120);
+            } else {
+                alert('Failed to insert image (method returned false)');
+            }
+        } catch (error) {
+            console.error('Error adding image annotation:', error);
+            alert(`Failed to add image: ${error}`);
         }
     };
 
@@ -166,37 +176,30 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
         if (!editor) return;
 
         try {
-            // Ensure we're not in freehand drawing mode while deleting
             editor.freeHandDraw?.(false);
 
-            // Try to delete currently selected object first
             const activeId = (editor as any)?.activeObj?.currIndex as string | undefined;
             if (activeId) {
                 editor.deleteShape(activeId);
-                console.log('Deleted selected annotation', activeId);
                 return;
             }
 
-            // Fallbacks: use shape settings (includes shapes, text, and freehand with ids like 'shape_*' or 'pen_*')
             const shapes = editor.getShapeSettings?.() ?? [];
-            if (Array.isArray(shapes) && shapes.length > 0) {
-                // Prefer the last-added annotation when nothing is selected
+            if (shapes.length > 0) {
                 const toDelete = shapes[shapes.length - 1];
                 if (toDelete?.id) {
                     editor.deleteShape(toDelete.id);
-                    console.log('Deleted last annotation', toDelete.id);
                     return;
                 }
             }
 
-            alert('No annotation to delete. Select one and try again.');
+            alert('No annotation selected to delete.');
         } catch (error) {
             console.error('Delete failed:', error);
             alert('Failed to delete selection.');
         }
     };
 
-    // JSX remains almost the same — only handlers changed
     return (
         <div className="tool-panel">
             <div className="panel-section">
@@ -209,12 +212,14 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                             onClick={() => handleAnnotationSelect(ann.type)}
                             title={ann.label}
                         >
-                            {ann.icon} {ann.label}
+                            <span className={`ann-icon e-icons ${ann.iconClass}`} aria-hidden="true" />
+                            <span className="ann-label">{ann.label}</span>
                         </ButtonComponent>
                     ))}
                 </div>
             </div>
 
+            {/* ─────────────── TEXT CONTROLS ─────────────── */}
             {activeAnnotation === AnnotationType.TEXT && (
                 <div className="panel-section">
                     <h4 className="section-title">Add Text</h4>
@@ -252,21 +257,108 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                     </div>
 
                     <ButtonComponent cssClass="tool-btn primary full-width" onClick={handleAddText}>
-                        ➕ Add Text
+                        <span className="tool-icon e-icons e-add" aria-hidden="true" />
+                        Add Text
                     </ButtonComponent>
                 </div>
             )}
 
-            {activeAnnotation && activeAnnotation !== AnnotationType.TEXT && activeAnnotation !== AnnotationType.FREEHAND && (
+            {/* ─────────────── IMAGE CONTROLS ─────────────── */}
+            {activeAnnotation === AnnotationType.IMAGE && (
                 <div className="panel-section">
-                    <h4 className="section-title">Add Shape</h4>
-                    <ButtonComponent cssClass="tool-btn primary full-width" onClick={handleAddShape}>
-                        ➕ Add {activeAnnotation}
+                    <h4 className="section-title">Add Image</h4>
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+
+                            setImageFile(file);
+
+                            const reader = new FileReader();
+                            reader.onload = (ev) => {
+                                setImagePreviewUrl(ev.target?.result as string);
+                            };
+                            reader.readAsDataURL(file);
+                        }}
+                        style={{ marginBottom: '16px', display: 'block', width: '100%', color: '#605e5c' }}
+                    />
+
+                    {imagePreviewUrl && (
+                        <div style={{ margin: '16px 0', textAlign: 'center' }}>
+                            <img
+                                src={imagePreviewUrl}
+                                alt="Preview"
+                                style={{
+                                    maxWidth: '220px',
+                                    maxHeight: '180px',
+                                    border: '1px solid #ddd',
+                                    borderRadius: '6px',
+                                    boxShadow: '0 1px 4px rgba(0,0,0,0.1)',
+                                }}
+                            />
+                        </div>
+                    )}
+
+                    <div className="style-row">
+                        <label>Width: {imageWidth}px</label>
+                        <SliderComponent
+                            min={40}
+                            max={500}
+                            value={imageWidth}
+                            change={(e: any) => setImageWidth(Number(e?.value ?? imageWidth))}
+                        />
+                    </div>
+
+                    <div className="style-row">
+                        <label>Height: {imageHeight}px</label>
+                        <SliderComponent
+                            min={30}
+                            max={400}
+                            value={imageHeight}
+                            change={(e: any) => setImageHeight(Number(e?.value ?? imageHeight))}
+                        />
+                    </div>
+
+                    <div style={{ margin: '16px 0' }}>
+                        <label style={{ display: 'flex', color:'#605e5c',fontSize:'13px', alignItems: 'center', gap: 8 }}>
+                            <input
+                                type="checkbox"
+                                checked={preserveAspect}
+                                onChange={(e) => setPreserveAspect(e.target.checked)}
+                            />
+                            Preserve aspect ratio
+                        </label>
+                    </div>
+
+                    <ButtonComponent
+                        cssClass="tool-btn primary full-width"
+                        disabled={!imagePreviewUrl}
+                        onClick={handleAddImage}
+                    >
+                        <span className="tool-icon e-icons e-add" aria-hidden="true" />
+                        Insert Image
                     </ButtonComponent>
                 </div>
             )}
 
-            {/* Style section unchanged */}
+            {/* ─────────────── SHAPE BUTTON (non-text, non-freehand, non-image) ─────────────── */}
+            {activeAnnotation &&
+                activeAnnotation !== AnnotationType.TEXT &&
+                activeAnnotation !== AnnotationType.FREEHAND &&
+                activeAnnotation !== AnnotationType.IMAGE && (
+                    <div className="panel-section">
+                        <h4 className="section-title">Add Shape</h4>
+                        <ButtonComponent cssClass="tool-btn primary full-width" onClick={handleAddShape}>
+                            <span className="tool-icon e-icons e-add" aria-hidden="true" />
+                            Add {activeAnnotation}
+                        </ButtonComponent>
+                    </div>
+                )}
+
+            {/* ─────────────── COMMON STYLE CONTROLS ─────────────── */}
             <div className="panel-section">
                 <h4 className="section-title">Style</h4>
 
@@ -274,7 +366,6 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                     <label className="style-label">Stroke Color</label>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <div
-                            aria-label="Stroke color preview"
                             style={{
                                 width: 28,
                                 height: 18,
@@ -295,15 +386,7 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                     </div>
 
                     {showStrokePicker && (
-                        <div
-                            style={{ marginTop: 12 }}
-                            onClick={(evt) => {
-                                const el = evt.target as HTMLElement;
-                                if (el.closest('.e-apply') || el.closest('.e-cancel')) {
-                                    setShowStrokePicker(false);
-                                }
-                            }}
-                        >
+                        <div style={{ marginTop: 12 }}>
                             <ColorPickerComponent
                                 value={strokeColor}
                                 inline={true}
@@ -319,15 +402,15 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
 
                 <div className="style-row">
                     <label className="style-label">Fill Color</label>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                         <div
-                            aria-label="Fill color preview"
                             style={{
                                 width: 28,
                                 height: 18,
                                 borderRadius: 4,
                                 border: '1px solid #555',
-                                background: fillColor === 'transparent' ? 'linear-gradient(45deg, #999 25%, transparent 25%, transparent 50%, #999 50%, #999 75%, transparent 75%, transparent)'
+                                background: fillColor === 'transparent'
+                                    ? 'linear-gradient(45deg, #999 25%, transparent 25%, transparent 50%, #999 50%, #999 75%, transparent 75%, transparent)'
                                     : fillColor,
                             }}
                         />
@@ -352,15 +435,7 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                     </div>
 
                     {showFillPicker && (
-                        <div
-                            style={{ marginTop: 12 }}
-                            onClick={(evt) => {
-                                const el = evt.target as HTMLElement;
-                                if (el.closest('.e-apply') || el.closest('.e-cancel')) {
-                                    setShowFillPicker(false);
-                                }
-                            }}
-                        >
+                        <div style={{ marginTop: 12 }}>
                             <ColorPickerComponent
                                 value={fillColor === 'transparent' ? '#FFFFFF' : fillColor}
                                 inline={true}
@@ -385,9 +460,11 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                 </div>
             </div>
 
+            {/* Delete */}
             <div className="panel-section">
                 <ButtonComponent cssClass="tool-btn danger full-width" onClick={handleDeleteSelected}>
-                    🗑️ Delete Selected
+                    <span className="top-icon e-icons e-trash" aria-hidden="true" />
+                    Delete Selected
                 </ButtonComponent>
             </div>
         </div>

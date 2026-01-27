@@ -181,7 +181,7 @@ function App() {
           {!state.isImageLoaded && (
             <div className="placeholder-overlay">
               <div className="placeholder">
-                <div className="placeholder-icon">🖼️</div>
+                <div className="placeholder-icon e-icons e-image"></div>
                 <div className="placeholder-text">
                   <p>No image loaded</p>
                   <p style={{ fontSize: '14px', color: '#666' }}>
@@ -189,7 +189,8 @@ function App() {
                   </p>
                 </div>
                 <ButtonComponent cssClass="placeholder-btn" onClick={openFileDialog}>
-                  📂 Open Image
+                  <span className="top-icon e-icons e-folder" aria-hidden="true" />
+                  Open Image
                 </ButtonComponent>
               </div>
             </div>
@@ -200,7 +201,7 @@ function App() {
         <div className={`tool-panel-container ${state.currentTool !== ToolType.NONE ? 'visible' : ''}`}>
           {state.currentTool !== ToolType.NONE && (
             <>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between',color:'#333', alignItems: 'center', marginBottom: '20px' }}>
                 <h3 style={{ margin: 0 }}>
                   {state.currentTool.charAt(0).toUpperCase() + state.currentTool.slice(1)} Tools
                 </h3>

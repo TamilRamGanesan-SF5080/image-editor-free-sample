@@ -90,13 +90,15 @@ const dim: any = dimRaw && dimRaw.width > 0
                         cssClass={`tool-btn ${redactType === 'Blur' ? 'active' : ''}`}
                         onClick={() => setRedactType('Blur')}
                     >
-                        🌫️ Blur
+                    <span className="filter-icon e-icons e-redact" aria-hidden="true" />
+                         Blur
                     </ButtonComponent>
                     <ButtonComponent
                         cssClass={`tool-btn ${redactType === 'Pixelate' ? 'active' : ''}`}
                         onClick={() => setRedactType('Pixelate')}
                     >
-                        ◻️ Pixelate
+                        <span className="filter-icon e-icons e-export-png" aria-hidden="true" />
+                        Pixelate
                     </ButtonComponent>
                 </div>
             </div>
@@ -134,7 +136,8 @@ const dim: any = dimRaw && dimRaw.width > 0
                     cssClass="tool-btn primary full-width"
                     onClick={handleApplyRedact}
                 >
-                    🔒 Add Redaction
+                    <span className="filter-icon e-icons e-lock" aria-hidden="true" />
+                 Add Redaction
                 </ButtonComponent>
 
                 <ButtonComponent
@@ -142,7 +145,8 @@ const dim: any = dimRaw && dimRaw.width > 0
                     onClick={handleDeleteLastRedact}
                     style={{ marginTop: '12px' }}
                 >
-                    🗑️ Delete Last Redaction
+                    <span className="top-icon e-icons e-trash" aria-hidden="true" />
+                     Delete Last Redaction
                 </ButtonComponent>
             </div>
 

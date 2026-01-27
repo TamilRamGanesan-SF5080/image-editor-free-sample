@@ -25,7 +25,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #999;
+    color: #333;
     margin: 0 0 12px 0;
 }
 
@@ -45,18 +45,32 @@
 
 /* Syncfusion Button overrides to keep existing look */
 .e-btn.tool-btn {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
+    border: 1px solid #D5D5D5;
+    background: #e3e3e3;
+    color: #605e5c;
     border-radius: 6px;
 }
-
-.e-btn.tool-btn.primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: none;
-    color: white;
+.e-btn.tool-btn:active {
+    border: 1px solid #D5D5D5;
+    background: #0078d4;
+    color: #ffffff;
+    border-radius: 6px;
 }
-
+.e-btn.tool-btn:focus {
+    border: 1px solid #D5D5D5;
+    background: #0078d4;
+    color: #ffffff;
+    border-radius: 6px;
+}
+.e-btn.tool-btn.primary {
+    background: #ffffff;
+    border: none;
+    color: #0078d4;
+}
+.tool-icon.e-icons{
+    margin-right: 3px;
+    font-size: 13px;
+}
 .e-btn.tool-btn.danger {
     background: rgba(244, 67, 54, 0.1);
     border-color: rgba(244, 67, 54, 0.4);
@@ -75,12 +89,14 @@
 
 
 .tool-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: #EEEEEE !important;
+    color: #605e5c !important;
     border-color: rgba(255, 255, 255, 0.3);
 }
 
 .tool-btn.active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+    background: #0078d4;
+    color: #ffffff;
     border-color: rgba(102, 126, 234, 0.6);
 }
 
@@ -135,21 +151,23 @@
     align-items: center;
     gap: 6px;
     padding: 16px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-    border-radius: 8px;
+    background: #e3e3e3 !important;
+    color: #605e5c !important;
+    border: 1px solid #D5D5D5 !important;
     cursor: pointer;
     transition: all 0.2s ease;
+    border-radius: 6px !important;
 }
 
 .filter-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: #EEEEEE !important;
     transform: translateY(-2px);
+
 }
 
 .filter-btn.active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+    background: #0078d4 !important;
+    color: #ffffff !important;
     border-color: rgba(102, 126, 234, 0.6);
 }
 
@@ -161,12 +179,20 @@
     font-size: 12px;
     font-weight: 500;
 }
+.top-bar-center .e-btn:focus{
 
+    background: white !important;
+    color: #046ae5 !important;
+}
+.top-bar-right .e-btn:focus{
+
+    background: white !important;
+    color: #046ae5 !important;
+}
 /* Adjustments */
 .adjustments-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
 }
 
 .adjustment-item {
@@ -183,17 +209,24 @@
 
 .adjustment-icon {
     font-size: 16px;
+    color: #605e5c;
 }
 
 .adjustment-label {
     flex: 1;
     font-size: 13px;
+    color: #605e5c;
     font-weight: 500;
+}
+.e-slider-track{
+    background: #605e5c !important;
+    height: 4px !important;
+    top: calc(50% - 3px) !important;
 }
 
 .adjustment-value {
     font-size: 13px;
-    color: #667eea;
+    color: #046ae5;
     font-weight: 600;
     min-width: 40px;
     text-align: right;
@@ -245,12 +278,14 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    font-size: 13px;
     margin-bottom: 16px;
+    color: #605e5c;
 }
 
 .style-label {
     font-size: 13px;
-    color: #999;
+    color: #605e5c;
     font-weight: 500;
 }
 

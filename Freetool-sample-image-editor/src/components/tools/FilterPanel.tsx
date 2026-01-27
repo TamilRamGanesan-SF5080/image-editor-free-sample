@@ -8,14 +8,14 @@ type FilterType = 'Default' | 'Chrome' | 'Cold' | 'Warm' | 'Grayscale' | 'Sepia'
 export const FilterPanel = ({ editorRef }: ToolPanelProps) => {
     const [activeFilter, setActiveFilter] = useState<FilterType>('Default');
 
-    const filters: { name: FilterType; icon: string; description: string }[] = [
-        { name: 'Default', icon: '🎨', description: 'No filter' },
-        { name: 'Chrome', icon: '✨', description: 'Chrome effect' },
-        { name: 'Cold', icon: '❄️', description: 'Cool tones' },
-        { name: 'Warm', icon: '🔥', description: 'Warm tones' },
-        { name: 'Grayscale', icon: '⚫', description: 'Black & white' },
-        { name: 'Sepia', icon: '📜', description: 'Vintage sepia' },
-        { name: 'Invert', icon: '🔄', description: 'Invert colors' },
+    const filters: { name: FilterType; iconClass: string; description: string }[] = [
+        { name: 'Default', iconClass: 'e-format-painter', description: 'No filter' },
+        { name: 'Chrome', iconClass: 'e-ai-chat', description: 'Chrome effect' },
+        { name: 'Cold', iconClass: 'e-tint', description: 'Cool tones' },
+        { name: 'Warm', iconClass: 'e-brightness', description: 'Warm tones' },
+        { name: 'Grayscale', iconClass: 'e-contrast', description: 'Black & white' },
+        { name: 'Sepia', iconClass: 'e-file-format', description: 'Vintage sepia' },
+        { name: 'Invert', iconClass: 'e-freeze-pane', description: 'Invert colors' },
     ];
 
     const applyFilter = (filter: FilterType) => {
@@ -37,7 +37,7 @@ export const FilterPanel = ({ editorRef }: ToolPanelProps) => {
                             onClick={() => applyFilter(filter.name)}
                             title={filter.description}
                         >
-                            <span className="filter-icon">{filter.icon}</span>
+                            <span className={`filter-icon e-icons ${filter.iconClass}`} aria-hidden="true" />
                             <span className="filter-name">{filter.name}</span>
                         </ButtonComponent>
                     ))}

@@ -1,5 +1,5 @@
 :root {
-  font-family: 'roboto', sans-serif;
+  font-family: "Roboto", "Segoe UI", "GeezaPro", "DejaVu Serif", "sans-serif", "-apple-system", "BlinkMacSystemFont";
   line-height: 1.5;
   font-weight: 400;
 
@@ -12,7 +12,21 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.filter-icon.e-icons{
+  font-size: 13px;
+  margin-right:3px;
+}
+.format-select{
+  background: #046ae5;
+  color: #ffffff;
+  padding: '6px';
+  border-radius: '6px';
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.top-icon.e-icons{
+  font-size: 12px;
+  margin-right:5px;
+}
 a {
   font-weight: 500;
   color: #646cff;
