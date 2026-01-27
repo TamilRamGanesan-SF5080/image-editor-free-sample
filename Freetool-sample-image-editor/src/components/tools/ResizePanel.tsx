@@ -73,14 +73,15 @@ export const ResizePanel = ({ editorRef }: ToolPanelProps) => {
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '12px' }}>
                     <CheckBoxComponent
-                        label="🔒 Maintain aspect ratio"
+                        label="Maintain aspect ratio"
                         checked={maintainAspectRatio}
                         change={(e: any) => setMaintainAspectRatio(!!e?.checked)}
                     />
                 </div>
 
                 <ButtonComponent cssClass="tool-btn primary full-width" onClick={handleResize}>
-                    📐 Apply Resize
+                    <span className="top-icon e-icons e-resize" aria-hidden="true" />
+                     Apply Resize
                 </ButtonComponent>
             </div>
 

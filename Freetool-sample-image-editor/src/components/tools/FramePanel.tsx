@@ -12,12 +12,12 @@ export const FramePanel = ({ editorRef }: ToolPanelProps) => {
     const [frameSize, setFrameSize] = useState(20);
     const [showFramePicker, setShowFramePicker] = useState(false);
 
-    const frames: { type: FrameType; icon: string; description: string }[] = [
-        { type: 'None', icon: '🚫', description: 'No frame' },
-        { type: 'Mat', icon: '🖼️', description: 'Mat frame' },
-        { type: 'Bevel', icon: '📐', description: 'Bevel frame' },
-        { type: 'Hook', icon: '🪝', description: 'Hook frame' },
-        { type: 'Inset', icon: '◻️', description: 'Inset frame' },
+    const frames: { type: FrameType; iconClass: string; description: string }[] = [
+        { type: 'None', iconClass: 'e-frame-none', description: 'No frame' },
+        { type: 'Mat', iconClass: 'e-frame-mat', description: 'Mat frame' },
+        { type: 'Bevel', iconClass: 'e-frame-bevel', description: 'Bevel frame' },
+        { type: 'Hook', iconClass: 'e-frame-hook', description: 'Hook frame' },
+        { type: 'Inset', iconClass: 'e-frame-inset', description: 'Inset frame' },
     ];
 
     const applyFrame = (frameType: FrameType) => {
@@ -55,7 +55,7 @@ export const FramePanel = ({ editorRef }: ToolPanelProps) => {
                             onClick={() => applyFrame(frame.type)}
                             title={frame.description}
                         >
-                            <span className="filter-icon">{frame.icon}</span>
+                            <span className={`filter-icon e-icons ${frame.iconClass}`} aria-hidden="true" />
                             <span className="filter-name">{frame.type}</span>
                         </ButtonComponent>
                     ))}

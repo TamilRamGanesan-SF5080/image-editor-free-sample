@@ -13,7 +13,7 @@ interface AdjustmentSetting {
     max: number;
     default: number;
     step: number;
-    icon: string;
+    iconClass: string;
 }
 
 export const FinetunePanel = ({ editorRef }: ToolPanelProps) => {
@@ -28,13 +28,13 @@ export const FinetunePanel = ({ editorRef }: ToolPanelProps) => {
     });
 
     const adjustments: AdjustmentSetting[] = [
-        { label: 'Brightness', option: 'Brightness', min: -100, max: 100, default: 0, step: 1, icon: '☀️' },
-        { label: 'Contrast', option: 'Contrast', min: -100, max: 100, default: 0, step: 1, icon: '◐' },
-        { label: 'Saturation', option: 'Saturation', min: -100, max: 100, default: 0, step: 1, icon: '🎨' },
-        { label: 'Hue', option: 'Hue', min: 0, max: 360, default: 0, step: 1, icon: '🌈' },
-        { label: 'Exposure', option: 'Exposure', min: -100, max: 100, default: 0, step: 1, icon: '📷' },
-        { label: 'Blur', option: 'Blur', min: 0, max: 100, default: 0, step: 1, icon: '🌫️' },
-        { label: 'Opacity', option: 'Opacity', min: 0, max: 100, default: 100, step: 1, icon: '👁️' },
+        { label: 'Brightness', option: 'Brightness', min: -100, max: 100, default: 0, step: 1, iconClass: 'e-brightness' },
+        { label: 'Contrast', option: 'Contrast', min: -100, max: 100, default: 0, step: 1, iconClass: 'e-contrast' },
+        { label: 'Saturation', option: 'Saturation', min: -100, max: 100, default: 0, step: 1, iconClass: 'e-saturation' },
+        { label: 'Hue', option: 'Hue', min: 0, max: 360, default: 0, step: 1, iconClass: 'e-chart' },
+        { label: 'Exposure', option: 'Exposure', min: -100, max: 100, default: 0, step: 1, iconClass: 'e-display' },
+        { label: 'Blur', option: 'Blur', min: 0, max: 100, default: 0, step: 1, iconClass: 'e-export-png' },
+        { label: 'Opacity', option: 'Opacity', min: 0, max: 100, default: 100, step: 1, iconClass: 'e-opacity' },
     ];
 
     const handleAdjustment = (option: FinetuneOption, value: number) => {
@@ -64,7 +64,7 @@ export const FinetunePanel = ({ editorRef }: ToolPanelProps) => {
                     {adjustments.map((adj) => (
                         <div key={adj.option} className="adjustment-item">
                             <div className="adjustment-header">
-                                <span className="adjustment-icon">{adj.icon}</span>
+                                <span className={`adjustment-icon e-icons ${adj.iconClass}`} aria-hidden="true" />
                                 <span className="adjustment-label">{adj.label}</span>
                                 <span className="adjustment-value">{values[adj.option]}</span>
                             </div>
