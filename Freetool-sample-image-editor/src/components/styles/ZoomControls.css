@@ -1,0 +1,80 @@
+.zoom-controls {
+  position: absolute;
+  right: 16px;
+  bottom: 6px; /* keep above footer (64px) with spacing */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 20; /* above canvas */
+}
+
+/* Syncfusion Button overrides for compact circular buttons */
+.zoom-controls .e-btn.zoom-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.95);
+  border: none;
+  color: #333;
+}
+
+.zoom-controls .e-btn.zoom-btn:hover:not(.e-disabled) {
+  background: #f3f4f6;
+}
+
+.zoom-controls .e-btn.zoom-btn .e-icons {
+  font-size: 18px;
+}
+
+.zoom-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.95);
+  padding: 6px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.zoom-label {
+  min-width: 48px;
+  text-align: center;
+  font-weight: 600;
+  color: #222;
+}
+
+.zoom-input {
+  width: 64px;
+  padding: 6px 8px;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 600;
+  color: #222;
+  background: transparent;
+}
+.zoom-input:focus {
+  outline: 2px solid rgba(59,130,246,0.15);
+  border-color: #3b82f6;
+}
+
+@media (max-width: 768px) {
+  .zoom-controls {
+    left: 8px;
+    bottom: 88px;
+  }
+}
+
+/* Adjust position when right sidebar is present/docked */
+/* When the sidebar toggle is collapsed (docked), move controls left to avoid overlap */
+body:has(.sidebar-toggle.collapsed) .zoom-controls {
+  right: 75px;
+}
+
+/* When the sidebar toggle is open (panel visible), keep controls close to the edge */
+body:has(.sidebar-toggle.open) .zoom-controls {
+  right: 16px;
+}

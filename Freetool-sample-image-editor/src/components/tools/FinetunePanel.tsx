@@ -55,7 +55,7 @@ export const FinetunePanel = ({ editorRef }: ToolPanelProps) => {
             <div className="panel-section">
                 <div className="section-header">
                     <h4 className="section-title">Fine-tune</h4>
-                    <ButtonComponent cssClass="tool-btn small" onClick={handleReset}>
+                    <ButtonComponent cssClass="tool-btn e-btn" iconCss='e-icons e-reset' onClick={handleReset}>
                         Reset All
                     </ButtonComponent>
                 </div>

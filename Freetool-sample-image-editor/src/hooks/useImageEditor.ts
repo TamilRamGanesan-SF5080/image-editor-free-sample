@@ -1,12 +1,16 @@
 import { useRef, useState, useCallback } from 'react';
-import { ImageEditorComponent } from '@syncfusion/ej2-react-image-editor';
+import { ImageEditorComponent, type ZoomSettingsModel } from '@syncfusion/ej2-react-image-editor';
 import { ToolType, type ImageEditorState } from '../types/imageEditor.types';
 
-export const useImageEditor = () => {
+export const useImageEditor = (zoomSettings?: ZoomSettingsModel) => {
     const editorRef = useRef<ImageEditorComponent>(null);
 
+    const minZoom = zoomSettings?.minZoomFactor ?? 0.1; // allow down to 10%
+    const maxZoom = zoomSettings?.maxZoomFactor ?? 5; // cap at 500%
+    const zoomStep = 0.25; // 25% increments for +/- buttons
+
     const [state, setState] = useState<ImageEditorState>({
-        currentTool: ToolType.NONE,
+        currentTool: ToolType.CROP,
         isImageLoaded: false,
         canUndo: true,
         canRedo: true,
@@ -48,19 +52,28 @@ export const useImageEditor = () => {
 
     const zoomIn = useCallback(() => {
         if (editorRef.current) {
-            const newZoom = state.zoomLevel + 0.1;
+            const next = state.zoomLevel + zoomStep;
+            const newZoom = Math.min(maxZoom, Number(next.toFixed(4)));
             editorRef.current.zoom(newZoom);
             setState(prev => ({ ...prev, zoomLevel: newZoom }));
         }
-    }, [state.zoomLevel]);
+    }, [state.zoomLevel, maxZoom, zoomStep]);
 
     const zoomOut = useCallback(() => {
         if (editorRef.current) {
-            const newZoom = Math.max(0.1, state.zoomLevel - 0.1);
+            const next = state.zoomLevel - zoomStep;
+            const newZoom = Math.max(minZoom, Number(next.toFixed(4)));
             editorRef.current.zoom(newZoom);
             setState(prev => ({ ...prev, zoomLevel: newZoom }));
         }
-    }, [state.zoomLevel]);
+    }, [state.zoomLevel, minZoom, zoomStep]);
+
+    const setZoom = useCallback((zoom: number) => {
+        if (!editorRef.current) return;
+        const clamped = Math.max(minZoom, Math.min(maxZoom, Number(zoom.toFixed(4))));
+        editorRef.current.zoom(clamped);
+        setState(prev => ({ ...prev, zoomLevel: clamped }));
+    }, [minZoom, maxZoom]);
 
     const resetEditor = useCallback(() => {
         if (editorRef.current) {
@@ -87,6 +100,7 @@ export const useImageEditor = () => {
         redo,
         zoomIn,
         zoomOut,
+        setZoom,
         resetEditor,
     };
 };

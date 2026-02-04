@@ -47,6 +47,11 @@ export const ResizePanel = ({ editorRef }: ToolPanelProps) => {
     return (
         <div className="tool-panel">
             <div className="panel-section">
+                <div className="panel-section" style={{ borderBottom: 'none' }}>
+                <p style={{ fontSize: '13px', color: '#444' }}>
+                💡 <strong>Tip:</strong> To apply preset dimensions, uncheck <strong>"Maintain aspect ratio"</strong> first, then select a preset.
+                </p>
+            </div>
                 <h4 className="section-title">Dimensions</h4>
 
                 <div className="style-row">
@@ -79,8 +84,7 @@ export const ResizePanel = ({ editorRef }: ToolPanelProps) => {
                     />
                 </div>
 
-                <ButtonComponent cssClass="tool-btn primary full-width" onClick={handleResize}>
-                    <span className="top-icon e-icons e-resize" aria-hidden="true" />
+                <ButtonComponent cssClass="tool-btn primary full-width" onClick={handleResize} iconCss='e-icons e-resize'>
                      Apply Resize
                 </ButtonComponent>
             </div>
@@ -93,6 +97,13 @@ export const ResizePanel = ({ editorRef }: ToolPanelProps) => {
                             key={preset.label}
                             cssClass="tool-btn"
                             onClick={() => applyPreset(preset.width, preset.height)}
+                            disabled={maintainAspectRatio}
+                            title={maintainAspectRatio ? 'Uncheck "Maintain aspect ratio" to use presets' : ''}
+                            style={{
+                                pointerEvents: maintainAspectRatio ? 'none' : undefined,
+                                opacity: maintainAspectRatio ? 0.6 : undefined,
+                                cursor: maintainAspectRatio ? 'default' : undefined,
+                            }}
                         >
                             {preset.label} ({preset.width}×{preset.height})
                         </ButtonComponent>

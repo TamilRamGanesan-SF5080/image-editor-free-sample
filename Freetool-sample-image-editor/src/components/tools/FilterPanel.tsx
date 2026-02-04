@@ -35,10 +35,10 @@ export const FilterPanel = ({ editorRef }: ToolPanelProps) => {
                             key={filter.name}
                             cssClass={`filter-btn ${activeFilter === filter.name ? 'active' : ''}`}
                             onClick={() => applyFilter(filter.name)}
+                            iconCss={`filter-icon e-icons ${filter.iconClass}`}
                             title={filter.description}
                         >
-                            <span className={`filter-icon e-icons ${filter.iconClass}`} aria-hidden="true" />
-                            <span className="filter-name">{filter.name}</span>
+                            {filter.name}
                         </ButtonComponent>
                     ))}
                 </div>

@@ -41,14 +41,11 @@ export interface ToolPanelProps {
 
 export interface TopBarProps {
   editorRef: React.RefObject<any>;
-  onOpenImage: () => void;
   onExport: () => void;
   canUndo: boolean;
   canRedo: boolean;
   onUndo: () => void;
   onRedo: () => void;
-  onZoomIn: () => void;
-  onZoomOut: () => void;
   onReset?: () => void;
   exportFormat: string;
   setExportFormat: (format: string) => void;
@@ -58,4 +55,15 @@ export interface BottomTabsProps {
   currentTool: ToolType;
   onToolChange: (tool: ToolType) => void;
   isImageLoaded: boolean;
+  onOpenImage?: () => void;
+}
+
+export interface ZoomControlsProps {
+  onZoomIn: () => void;
+  onZoomOut: () => void;
+  disabled?: boolean;
+  zoomLevel?: number;
+  onSetZoom?: (zoom: number) => void; // zoom factor (1 = 100%)
+  minZoom?: number; // factor
+  maxZoom?: number; // factor
 }
