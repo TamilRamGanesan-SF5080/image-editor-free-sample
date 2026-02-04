@@ -27,7 +27,7 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
     // Color pickers visibility
     const [showStrokePicker, setShowStrokePicker] = useState(false);
     const [showFillPicker, setShowFillPicker] = useState(false);
-
+    imageFile
     const annotations = [
         { type: AnnotationType.TEXT, iconClass: 'e-text-annotation', label: 'Text' },
         { type: AnnotationType.RECTANGLE, iconClass: 'e-rectangle', label: 'Rectangle' },
@@ -171,6 +171,25 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
         }
     };
 
+    // Handle file selected from Syncfusion Uploader
+    const handleUploaderSelected = (args: any) => {
+        try {
+            const file = args?.filesData?.[0]?.rawFile as File | undefined;
+            if (!file) return;
+
+            setImageFile(file);
+
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                setImagePreviewUrl(ev.target?.result as string);
+            };
+            reader.readAsDataURL(file);
+        } catch (error) {
+            console.error('Uploader selected handler error:', error);
+        }
+    };
+    handleUploaderSelected
+
     const handleDeleteSelected = () => {
         const editor = getSafeEditor();
         if (!editor) return;
@@ -203,6 +222,11 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
     return (
         <div className="tool-panel">
             <div className="panel-section">
+                <div className="panel-section" style={{ borderBottom: 'none' }}>
+    <p style={{ fontSize: '13px', color: '#333' }}>
+        💡 <strong>Tip:</strong> Choose an annotation tool, then click the <strong>ADD SHAPE's</strong> button to place it on the image.
+    </p>
+</div>
                 <h4 className="section-title">Annotation Tools</h4>
                 <div className="button-grid">
                     {annotations.map((ann) => (
@@ -211,9 +235,8 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                             cssClass={`tool-btn ${activeAnnotation === ann.type ? 'active' : ''}`}
                             onClick={() => handleAnnotationSelect(ann.type)}
                             title={ann.label}
-                        >
-                            <span className={`ann-icon e-icons ${ann.iconClass}`} aria-hidden="true" />
-                            <span className="ann-label">{ann.label}</span>
+                            iconCss={`e-icons ${ann.iconClass}`}
+                        >{ann.label}
                         </ButtonComponent>
                     ))}
                 </div>
@@ -245,19 +268,20 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                         <ButtonComponent
                             cssClass={`tool-btn ${bold ? 'active' : ''}`}
                             onClick={() => setBold(!bold)}
+                            iconCss='e-icons e-bold'
                         >
-                            <strong>B</strong> Bold
+                        Bold
                         </ButtonComponent>
                         <ButtonComponent
                             cssClass={`tool-btn ${italic ? 'active' : ''}`}
                             onClick={() => setItalic(!italic)}
+                            iconCss='e-icons e-italic'
                         >
-                            <em>I</em> Italic
+                         Italic
                         </ButtonComponent>
                     </div>
 
-                    <ButtonComponent cssClass="tool-btn primary full-width" onClick={handleAddText}>
-                        <span className="tool-icon e-icons e-add" aria-hidden="true" />
+                    <ButtonComponent cssClass="tool-btn primary full-width" iconCss='e-icons e-plus' onClick={handleAddText}>
                         Add Text
                     </ButtonComponent>
                 </div>
@@ -267,25 +291,29 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
             {activeAnnotation === AnnotationType.IMAGE && (
                 <div className="panel-section">
                     <h4 className="section-title">Add Image</h4>
-
                     <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                            const file = e.target.files?.[0];
-                            if (!file) return;
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
 
-                            setImageFile(file);
+                        setImageFile(file);
 
-                            const reader = new FileReader();
-                            reader.onload = (ev) => {
-                                setImagePreviewUrl(ev.target?.result as string);
-                            };
-                            reader.readAsDataURL(file);
-                        }}
-                        style={{ marginBottom: '16px', display: 'block', width: '100%', color: '#605e5c' }}
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                        setImagePreviewUrl(ev.target?.result as string);
+                        };
+                        reader.readAsDataURL(file);
+                    }}
+                    className="custom-file-input"   // ← add this
+                    style={{ 
+                        marginBottom: '16px', 
+                        display: 'block', 
+                        width: '100%', 
+                        color: '#605e5c' 
+                    }}
                     />
-
                     {imagePreviewUrl && (
                         <div style={{ margin: '16px 0', textAlign: 'center' }}>
                             <img
@@ -323,7 +351,7 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                     </div>
 
                     <div style={{ margin: '16px 0' }}>
-                        <label style={{ display: 'flex', color:'#605e5c',fontSize:'13px', alignItems: 'center', gap: 8 }}>
+                        <label style={{ display: 'flex', color:'#605e5c',fontSize:'14px', alignItems: 'center', gap: 8 }}>
                             <input
                                 type="checkbox"
                                 checked={preserveAspect}
@@ -338,7 +366,7 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                         disabled={!imagePreviewUrl}
                         onClick={handleAddImage}
                     >
-                        <span className="tool-icon e-icons e-add" aria-hidden="true" />
+                        <span className="tool-icon e-icons e-plus" aria-hidden="true" />
                         Insert Image
                     </ButtonComponent>
                 </div>
@@ -352,118 +380,119 @@ export const AnnotatePanel = ({ editorRef }: ToolPanelProps) => {
                     <div className="panel-section">
                         <h4 className="section-title">Add Shape</h4>
                         <ButtonComponent cssClass="tool-btn primary full-width" onClick={handleAddShape}>
-                            <span className="tool-icon e-icons e-add" aria-hidden="true" />
+                            <span className="tool-icon e-icons e-plus" aria-hidden="true" />
                             Add {activeAnnotation}
                         </ButtonComponent>
                     </div>
                 )}
 
             {/* ─────────────── COMMON STYLE CONTROLS ─────────────── */}
-            <div className="panel-section">
-                <h4 className="section-title">Style</h4>
+            {activeAnnotation !== AnnotationType.IMAGE && (
+                <div className="panel-section">
+                    <h4 className="section-title">Style</h4>
 
-                <div className="style-row">
-                    <label className="style-label">Stroke Color</label>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <div
-                            style={{
-                                width: 28,
-                                height: 18,
-                                borderRadius: 4,
-                                border: '1px solid #555',
-                                background: strokeColor,
-                            }}
-                        />
-                        <ButtonComponent
-                            cssClass="tool-btn small"
-                            onClick={() => {
-                                setShowFillPicker(false);
-                                setShowStrokePicker((v) => !v);
-                            }}
-                        >
-                            {showStrokePicker ? 'Close' : 'Pick'}
-                        </ButtonComponent>
-                    </div>
-
-                    {showStrokePicker && (
-                        <div style={{ marginTop: 12 }}>
-                            <ColorPickerComponent
-                                value={strokeColor}
-                                inline={true}
-                                showButtons={true}
-                                change={(e: any) => {
-                                    setStrokeColor(String(e?.currentValue?.hex ?? strokeColor));
-                                    setShowStrokePicker(false);
+                    <div className="style-row">
+                        <label className="style-label">Stroke Color</label>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <div
+                                style={{
+                                    width: 28,
+                                    height: 18,
+                                    borderRadius: 4,
+                                    border: '1px solid #555',
+                                    background: strokeColor,
                                 }}
                             />
+                            <ButtonComponent
+                                cssClass="tool-btn small"
+                                onClick={() => {
+                                    setShowFillPicker(false);
+                                    setShowStrokePicker((v) => !v);
+                                }}
+                            >
+                                {showStrokePicker ? 'Close' : 'Pick'}
+                            </ButtonComponent>
                         </div>
-                    )}
-                </div>
 
-                <div className="style-row">
-                    <label className="style-label">Fill Color</label>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                        <div
-                            style={{
-                                width: 28,
-                                height: 18,
-                                borderRadius: 4,
-                                border: '1px solid #555',
-                                background: fillColor === 'transparent'
-                                    ? 'linear-gradient(45deg, #999 25%, transparent 25%, transparent 50%, #999 50%, #999 75%, transparent 75%, transparent)'
-                                    : fillColor,
-                            }}
-                        />
-                        <ButtonComponent
-                            cssClass="tool-btn small"
-                            onClick={() => {
-                                setShowStrokePicker(false);
-                                setShowFillPicker((v) => !v);
-                            }}
-                        >
-                            {showFillPicker ? 'Close' : 'Pick'}
-                        </ButtonComponent>
-                        <ButtonComponent
-                            cssClass={`tool-btn small ${fillColor === 'transparent' ? 'active' : ''}`}
-                            onClick={() => {
-                                setFillColor('transparent');
-                                setShowFillPicker(false);
-                            }}
-                        >
-                            None
-                        </ButtonComponent>
+                        {showStrokePicker && (
+                            <div style={{ marginTop: 12 }}>
+                                <ColorPickerComponent
+                                    value={strokeColor}
+                                    inline={true}
+                                    showButtons={true}
+                                    change={(e: any) => {
+                                        setStrokeColor(String(e?.currentValue?.hex ?? strokeColor));
+                                        setShowStrokePicker(false);
+                                    }}
+                                />
+                            </div>
+                        )}
                     </div>
 
-                    {showFillPicker && (
-                        <div style={{ marginTop: 12 }}>
-                            <ColorPickerComponent
-                                value={fillColor === 'transparent' ? '#FFFFFF' : fillColor}
-                                inline={true}
-                                showButtons={true}
-                                change={(e: any) => {
-                                    setFillColor(String(e?.currentValue?.hex ?? fillColor));
+                    <div className="style-row">
+                        <label className="style-label">Fill Color</label>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                            <div
+                                style={{
+                                    width: 28,
+                                    height: 18,
+                                    borderRadius: 4,
+                                    border: '1px solid #555',
+                                    background: fillColor === 'transparent'
+                                        ? 'linear-gradient(45deg, #999 25%, transparent 25%, transparent 50%, #999 50%, #999 75%, transparent 75%, transparent)'
+                                        : fillColor,
+                                }}
+                            />
+                            <ButtonComponent
+                                cssClass="tool-btn small"
+                                onClick={() => {
+                                    setShowStrokePicker(false);
+                                    setShowFillPicker((v) => !v);
+                                }}
+                            >
+                                {showFillPicker ? 'Close' : 'Pick'}
+                            </ButtonComponent>
+                            <ButtonComponent
+                                cssClass={`tool-btn small ${fillColor === 'transparent' ? 'active' : ''}`}
+                                onClick={() => {
+                                    setFillColor('transparent');
                                     setShowFillPicker(false);
                                 }}
-                            />
+                            >
+                                None
+                            </ButtonComponent>
                         </div>
-                    )}
-                </div>
 
-                <div className="style-row">
-                    <label className="style-label">Stroke Width: {strokeWidth}px</label>
-                    <SliderComponent
-                        min={1}
-                        max={20}
-                        value={strokeWidth}
-                        change={(e: any) => setStrokeWidth(Number(e?.value ?? strokeWidth))}
-                    />
+                        {showFillPicker && (
+                            <div style={{ marginTop: 12 }}>
+                                <ColorPickerComponent
+                                    value={fillColor === 'transparent' ? '#FFFFFF' : fillColor}
+                                    inline={true}
+                                    showButtons={true}
+                                    change={(e: any) => {
+                                        setFillColor(String(e?.currentValue?.hex ?? fillColor));
+                                        setShowFillPicker(false);
+                                    }}
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="style-row">
+                        <label className="style-label">Stroke Width: {strokeWidth}px</label>
+                        <SliderComponent
+                            min={1}
+                            max={20}
+                            value={strokeWidth}
+                            change={(e: any) => setStrokeWidth(Number(e?.value ?? strokeWidth))}
+                        />
+                    </div>
                 </div>
-            </div>
+            )}
 
             {/* Delete */}
             <div className="panel-section">
-                <ButtonComponent cssClass="tool-btn danger full-width" onClick={handleDeleteSelected}>
-                    <span className="top-icon e-icons e-trash" aria-hidden="true" />
+                <ButtonComponent cssClass="tool-btn danger full-width" className='delete-icon' onClick={handleDeleteSelected} iconCss='e-icons e-trash'>
                     Delete Selected
                 </ButtonComponent>
             </div>

@@ -12,9 +12,25 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.filter-icon.e-icons{
-  font-size: 13px;
-  margin-right:3px;
+.right-sidebar h3{
+  margin-left: 30px !important;
+  font-size: 17px;
+}
+.input#file-uploader-button {
+  font-size: 15px;
+}
+.uploader-sub{
+  font-size: 14px;
+    color: #7a7f88;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.uploader-hint{
+  color: #495057;
+  font-size: 18px;
+}
+#leftSidebar{
+  margin-top: 60px;
+  padding-bottom: 55px;
 }
 .format-select{
   background: #046ae5;
@@ -22,6 +38,21 @@
   padding: '6px';
   border-radius: '6px';
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.zoom-controls .e-btn.zoom-btn:focus{
+  box-shadow: none !important;
+}
+.panel-section .e-icons.e-crop{
+  font-size: 20px;
+  margin-right: -3px;
+}
+
+.e-btn-group.e-vertical{
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
 }
 .top-icon.e-icons{
   font-size: 12px;

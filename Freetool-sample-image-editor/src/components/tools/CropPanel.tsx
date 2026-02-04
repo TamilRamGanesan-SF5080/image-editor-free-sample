@@ -78,8 +78,7 @@ export const CropPanel = ({ editorRef }: ToolPanelProps) => {
                         Circle
                     </ButtonComponent>
                 </div>
-                    <ButtonComponent cssClass="tool-btn primary full-width" onClick={handleApplyCrop}>
-                        <span className="tool-icon e-icons e-crop" aria-hidden="true"/>
+                    <ButtonComponent cssClass="tool-btn primary full-width" iconCss='e-icons e-crop' onClick={handleApplyCrop}>
                         Apply Crop
                     </ButtonComponent>
             </div>
@@ -87,20 +86,16 @@ export const CropPanel = ({ editorRef }: ToolPanelProps) => {
             <div className="panel-section">
                 <h4 className="section-title">Transform</h4>
                 <div className="button-grid">
-                    <ButtonComponent cssClass="tool-btn" onClick={() => handleRotate(90)}>
-                        <span className="tool-icon e-icons e-rotate-right" aria-hidden="true" />
+                    <ButtonComponent cssClass="tool-btn" iconCss='e-icons e-rotate-right' onClick={() => handleRotate(90)}>
                         Rotate 90°
                     </ButtonComponent>
-                    <ButtonComponent cssClass="tool-btn" onClick={() => handleRotate(-90)}>
-                        <span className="tool-icon e-icons e-rotate-left" aria-hidden="true" />
+                    <ButtonComponent cssClass="tool-btn" iconCss='e-icons e-rotate-lef' onClick={() => handleRotate(-90)}>
                         Rotate -90°
                     </ButtonComponent>
-                    <ButtonComponent cssClass="tool-btn" onClick={() => handleFlip('Horizontal')}>
-                        <span className="tool-icon e-icons e-flip-horizontal" aria-hidden="true" />
+                    <ButtonComponent cssClass="tool-btn" iconCss='e-icons e-flip-horizontal' onClick={() => handleFlip('Horizontal')}>
                         Flip H
                     </ButtonComponent>
-                    <ButtonComponent cssClass="tool-btn" onClick={() => handleFlip('Vertical')}>
-                        <span className="tool-icon e-icons e-flip-vertical" aria-hidden="true" />
+                    <ButtonComponent cssClass="tool-btn" iconCss='e-icons e-flip-vertical' onClick={() => handleFlip('Vertical')}>
                         Flip V
                     </ButtonComponent>
                 </div>

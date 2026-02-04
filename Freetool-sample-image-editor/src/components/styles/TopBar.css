@@ -1,3 +1,36 @@
+/* Export format dropdown menu styles */
+.export-format-menu {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    min-width: 180px;
+    padding: 8px 0;
+    z-index: 1000;
+    position: absolute;
+    right: 0;
+    top: 110%;
+    animation: fadeInMenu 0.18s ease;
+}
+
+.export-format-option {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+}
+.export-format-option:hover {
+    background: #ebecef;
+}
+.tool-panel-container .e-btn{
+    font-size: 15px;
+}
+@keyframes fadeInMenu {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 .top-bar {
     display: flex;
     align-items: center;
@@ -28,6 +61,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-left: 280px;
 }
 
 .top-bar-right {
@@ -91,12 +125,7 @@
     color: #046ae5;
 }
 
-.divider {
-    width: 1px;
-    height: 24px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 0 8px;
-}
+
 
 @media (max-width: 768px) {
     .top-bar {
@@ -114,6 +143,45 @@
     }
 
     .top-bar-center .top-bar-btn span {
+        display: none;
+    }
+}
+
+/* Help / Powered-by block */
+.help-pane-content {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.help-pane-content .help-text {
+    color: #ffffff;
+}
+
+.syncfusion-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: inline-block;
+    margin-right: 7px;
+    filter: brightness(0) invert(1);
+}
+
+.free-tools-sample-explore-btn {
+    text-decoration: none; 
+    color:#fff30f;
+    font-weight: 600;
+    font-size: 16px;
+}
+.free-tools-sample-explore-btn:hover {
+    text-decoration: none; 
+    color:#fff30f;
+}
+
+@media (max-width: 768px) {
+    .help-pane-content {
         display: none;
     }
 }

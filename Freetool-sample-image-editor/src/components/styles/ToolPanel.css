@@ -49,18 +49,20 @@
     background: #e3e3e3;
     color: #605e5c;
     border-radius: 6px;
+    font-size: 15px;
 }
 .e-btn.tool-btn:active {
     border: 1px solid #D5D5D5;
-    background: #0078d4;
+    background: rgb(86.4, 93.6, 100);
     color: #ffffff;
     border-radius: 6px;
 }
 .e-btn.tool-btn:focus {
     border: 1px solid #D5D5D5;
-    background: #0078d4;
+    /* background: #0078d4; */
     color: #ffffff;
     border-radius: 6px;
+    box-shadow: 0 0 0 1px rgba(130.05, 137.7, 144.5, 0.5) !important;
 }
 .e-btn.tool-btn.primary {
     background: #ffffff;
@@ -76,10 +78,14 @@
     border-color: rgba(244, 67, 54, 0.4);
     color: #f44336;
 }
-
+.e-btn.tool-btn.danger:hover {
+    background: #f44336 !important;
+    border-color: rgba(244, 67, 54, 0.4) ;
+    color: #ffffff !important;
+}
 .e-btn.tool-btn.small {
     padding: 6px 12px;
-    font-size: 11px;
+    font-size: 13px;
 }
 
 .e-btn.tool-btn.full-width {
@@ -89,15 +95,15 @@
 
 
 .tool-btn:hover {
-    background: #EEEEEE !important;
-    color: #605e5c !important;
+    background: rgb(86.4, 93.6, 100) !important;
+    color: #fffbf7 !important;
     border-color: rgba(255, 255, 255, 0.3);
 }
 
 .tool-btn.active {
-    background: #0078d4;
+    background: rgb(86.4, 93.6, 100);
     color: #ffffff;
-    border-color: rgba(102, 126, 234, 0.6);
+    border-color: rgba(84, 86, 96, 0.426);
 }
 
 .tool-btn.primary {
@@ -144,13 +150,40 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
 }
-
+.uploader-button{
+    background: #ffffff !important ;
+    border: 1px solid #D3D3D3 !important;
+    color: #000 !important;
+    font-size: 16px !important;
+    height: 48px;
+    width: 160px;
+    border-radius: 10px !important;
+    font-weight: 600;
+    padding: 12px 20px;
+    box-shadow: none;
+    color: #fff;
+}
+.uploader-button:hover{
+    background: rgb(91.8, 99.45, 106.25) !important;
+    border-color: rgb(86.4, 93.6, 100) !important;
+    box-shadow: none !important;
+    color: #fff !important;
+}
+.uploader-button:focus{
+    background: rgb(91.8, 99.45, 106.25) !important;
+    border-color: #6c757d !important;
+    color: #fff !important;
+    outline: #6c757d 0 solid !important;
+    outline-offset: 0 !important;
+    box-shadow: 0 0 0 4px rgba(130.05, 137.7, 144.5, .5) !important;
+}
 .filter-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
     padding: 16px 12px;
+    font-size: 16px !important;
     background: #e3e3e3 !important;
     color: #605e5c !important;
     border: 1px solid #D5D5D5 !important;
@@ -160,27 +193,23 @@
 }
 
 .filter-btn:hover {
-    background: #EEEEEE !important;
+    background: rgb(86.4, 93.6, 100) !important;
     transform: translateY(-2px);
+    color: #EEEEEE !important ;
 
 }
 
 .filter-btn.active {
-    background: #0078d4 !important;
+    background: rgb(86.4, 93.6, 100) !important;
     color: #ffffff !important;
-    border-color: rgba(102, 126, 234, 0.6);
-}
-
-.filter-icon {
-    font-size: 24px;
+    border-color: rgba(97, 100, 114, 0.6);
 }
 
 .filter-name {
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 15px;
 }
-.top-bar-center .e-btn:focus{
 
+.top-bar-center .e-btn:focus{
     background: white !important;
     color: #046ae5 !important;
 }
@@ -198,7 +227,6 @@
 .adjustment-item {
     display: flex;
     flex-direction: column;
-    gap: 8px;
 }
 
 .adjustment-header {
@@ -214,14 +242,13 @@
 
 .adjustment-label {
     flex: 1;
-    font-size: 13px;
+    font-size: 16px;
     color: #605e5c;
-    font-weight: 500;
 }
 .e-slider-track{
     background: #605e5c !important;
-    height: 4px !important;
-    top: calc(50% - 3px) !important;
+    height: 3px !important;
+    top: calc(51% - 3px) !important;
 }
 
 .adjustment-value {
@@ -286,7 +313,6 @@
 .style-label {
     font-size: 13px;
     color: #605e5c;
-    font-weight: 500;
 }
 
 .color-input {

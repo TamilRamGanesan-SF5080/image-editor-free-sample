@@ -25,8 +25,8 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: #fafafa;
-  color: #ffffff;
+  background: #f5f6f7;
+  color: #333;
 }
 
 .app-content {
@@ -41,11 +41,24 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fafafa;
+  background: transparent;
   position: relative;
   overflow: hidden;
+  margin-right: 330px; 
+}
+.canvas-container {
+  transition: margin-right 0.28s ease;
+}
+.canvas-container .e-btn{
+  font-size: 15px;
 }
 
+.app-content.tool-visible .canvas-container {
+  margin-right: 320px; /* reserve space for visible tool panel */
+}
+.e-ie-drop-area{
+  display: none;
+}
 .image-editor-canvas {
   width: 100%;
   height: 100%;
@@ -67,12 +80,12 @@ body {
   z-index: 10;
 }
 .ann-icon.e-icons{
-
-  font-size: 13px;
+  font-size: 15px;
   margin-right: 3px;
 }
 .tool-panel-container.visible {
   transform: translateX(0);
+  padding-bottom: 70px;
 }
 
 .placeholder-overlay {
@@ -123,6 +136,81 @@ body {
   color: white;
 }
 
+/* Uploader dropzone styles */
+.uploader-overlay {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  z-index: 5;
+  background: transparent;
+}
+
+.uploader-dropzone {
+  width: 100%;
+  max-width: 1100px;
+  height: 210px;
+  border: 2px dashed #0F6CBD;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.6));
+  box-shadow: 0 6px 18px rgba(30,136,229,0.06) inset;
+}
+
+.uploader-content {
+  text-align: center;
+  color: #3a3f45;
+}
+
+.upload-btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.uploader-hint {
+  margin-top: 12px;
+  font-size: 16px;
+  color: #6b7280;
+}
+
+/* When an uploader overlay exists, collapse canvas right margin; otherwise reserve space */
+body:has(.uploader-overlay) .canvas-container {
+  margin-right: 0px !important;
+}
+/* body:not(:has(.uploader-overlay)) .canvas-container {
+  margin-right: 360px !important;
+} */
+
+/* Hide right sidebar while uploader overlay is visible, show it otherwise */
+body:has(.uploader-overlay) .right-sidebar {
+  display: none !important;
+  margin-right: 0px !important;
+}
+body:not(:has(.uploader-overlay)) .right-sidebar {
+  display: block !important;
+}
+
+body:has(.right-sidebar) .canvas-container {
+  margin-right: 330px !important;
+}
+body:has(.right-sidebar.e-open) :not(:has(.uploader-overlay ~ .canvas-container, .canvas-container ~ .uploader-overlay)) .canvas-container {
+  margin-right: 330px !important;
+}
+
+body:has(.uploader-overlay) .canvas-container {
+  margin-left: 330px !important;
+}
+body:not(:has(.uploader-overlay)) .canvas-container {
+  margin-right: 0px !important;
+}
 /* Syncfusion Theme Overrides */
 .e-image-editor {
   background: transparent !important;
@@ -148,4 +236,218 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
+}
+.right-sidebar{
+  background: #e3e3e3 !important;
+  padding-bottom: 70px;
+}
+/* Footer banner styles (Syncfusion-like bottom promo) */
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  background: #046ae5;
+  color: #ffffff;
+  z-index: 1001;
+}
+
+.e-control-wrapper.e-slider-container .e-slider .e-handle{
+  height: 9px !important;
+  width: 9px !important;
+}
+
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+}
+
+.docx-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+}
+
+.footer-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  margin-right: 12px;
+}
+.image-icon{
+  font-size: 30px;
+  margin-right: 10px;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  font-size: 15px;
+  flex: 1;
+}
+.footer-content .title span:first-child {
+  font-size: 16px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  color: rgba(255,255,255,0.95);
+}
+
+.title span:first-child {
+  font-size: 14px;
+}
+
+.title .main-title {
+  color: #fff;
+  font-weight: 700;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.footer-trial-btn {
+  background: #ffd336;
+  color: #06223a;
+  border-radius: 8px;
+  padding: 10px 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.style-row label{
+  font-size: 15px;
+}
+
+.footer-trial-btn:hover {
+  filter: brightness(0.95);
+}
+.filter-grid .e-btn:focus{
+  box-shadow: 0 0 0 1px rgba(130.05, 137.7, 144.5, 0.5) !important;
+}
+
+.create{
+  font-size: 17px;
+
+}
+.sidebar-btn.btn-create{
+  background: #0565ff !important;
+  color: white !important;
+  display: flex;
+  flex-direction: row;
+  padding: 15px 15px !important;
+}
+.sidebar-btn.btn-create:focus{
+  background-color: #0050d1 !important;
+  border-color: #0050d1 !important;
+}
+.sidebar-btn.btn-create:hover{
+      background: #2e7eff !important;
+    border: 1px solid #0050d1 !important;
+    box-shadow: 0 2px 12px 0 rgba(5, 101, 255, .15) !important;
+}
+.sidebar-btn.btn-create:active{
+      background-color: #0050d1 !important;
+    border-color: #0050d1 !important;
+}
+.footer-demo-btn {
+  background: transparent;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  border: 1px solid rgba(255,255,255,0.18);
+  cursor: pointer;
+}
+
+.footer-demo-btn:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+/* Ensure app content doesn't get hidden behind footer */
+.app-content {
+  padding-bottom: 72px; /* footer height + spacing */
+}
+.canvas-container {
+
+  transition: margin-right 0.3s ease;
+}
+
+
+/* Sidebar toggle (expand/collapse) button anchored to canvas right edge */
+.right-sidebar .sidebar-toggle {
+  position: absolute;
+  margin-top: 34px;
+  margin-left: 5px;
+  transform: translateY(-50%);
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  border: 1px solid #D5D5D5;
+  color: #605e5c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.right-sidebar .sidebar-toggle .e-icons{
+  font-size: 17px;
+}
+
+@media (max-width: 639px) {
+  /* hide dock toggle on small screens where sidebar should overlay */
+  .right-sidebar .sidebar-toggle {
+    display: none;
+  }
+}
+.custom-file-input {
+  font-size: 16px;          /* helps overall sizing */
+  padding: 8px 0;           /* optional: gives some breathing room */
+}
+
+/* Main styling for the button */
+.custom-file-input::file-selector-button {
+  height: 30px; 
+  min-height: 30px;            /* ← your target height — try 44px, 52px, 56px etc. */
+  padding: 4px 8px;          /* horizontal spacing */
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #f0f4f8; /* light gray example - change to match your design */
+  color: #333;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Hover effect */
+.custom-file-input::file-selector-button:hover {
+  background-color: rgb(86.4, 93.6, 100);
+  color: #fff;
+}
+
+/* For older WebKit browsers (extra safety) */
+.custom-file-input::-webkit-file-upload-button {
+  height: 25px;
+  padding: 4px 8px;
+  font-size: 15px;
+  background-color: #f0f4f8;
+  color: #333;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
 }

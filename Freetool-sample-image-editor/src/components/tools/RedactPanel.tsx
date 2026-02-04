@@ -88,16 +88,16 @@ const dim: any = dimRaw && dimRaw.width > 0
                 <div className="button-grid">
                     <ButtonComponent
                         cssClass={`tool-btn ${redactType === 'Blur' ? 'active' : ''}`}
+                        iconCss='e-icons e-redact'
                         onClick={() => setRedactType('Blur')}
                     >
-                    <span className="filter-icon e-icons e-redact" aria-hidden="true" />
                          Blur
                     </ButtonComponent>
                     <ButtonComponent
                         cssClass={`tool-btn ${redactType === 'Pixelate' ? 'active' : ''}`}
                         onClick={() => setRedactType('Pixelate')}
+                        iconCss='e-icons e-export-png'
                     >
-                        <span className="filter-icon e-icons e-export-png" aria-hidden="true" />
                         Pixelate
                     </ButtonComponent>
                 </div>
@@ -118,7 +118,7 @@ const dim: any = dimRaw && dimRaw.width > 0
             )}
 
             {redactType === 'Pixelate' && (
-                <div className="panel-section">
+                <div className="panel-section-2">
                     <div className="style-row">
                         <label className="style-label">Pixel Size: {pixelSize}px</label>
                         <SliderComponent
@@ -135,8 +135,8 @@ const dim: any = dimRaw && dimRaw.width > 0
                 <ButtonComponent
                     cssClass="tool-btn primary full-width"
                     onClick={handleApplyRedact}
+                    iconCss='e-icons e-lock'
                 >
-                    <span className="filter-icon e-icons e-lock" aria-hidden="true" />
                  Add Redaction
                 </ButtonComponent>
 
@@ -144,17 +144,18 @@ const dim: any = dimRaw && dimRaw.width > 0
                     cssClass="tool-btn danger full-width"
                     onClick={handleDeleteLastRedact}
                     style={{ marginTop: '12px' }}
+                    iconCss='e-icons e-trash'
+                    className='delete-icon'
                 >
-                    <span className="top-icon e-icons e-trash" aria-hidden="true" />
                      Delete Last Redaction
                 </ButtonComponent>
             </div>
 
             <div className="panel-section" style={{ borderBottom: 'none' }}>
-                <p style={{ fontSize: '12px', color: '#999', lineHeight: '1.5' }}>
+                <p style={{ fontSize: '13px', color: '#333' }}>
                     💡 <strong>Tip:</strong> Use redaction to hide sensitive information like faces,
                     license plates, or personal data before sharing images.<br />
-                    <small>Redactions are placed near the top-left center of the visible image area.</small>
+                    Redactions are placed at the visible image area.
                 </p>
             </div>
         </div>

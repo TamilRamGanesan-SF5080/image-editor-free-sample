@@ -3,12 +3,13 @@
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    padding: 20px 12px;
+    padding: 20px 24px;
     background: #e3e3e3;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-    width: 90px;
+    width: 200px;
     height: 100%;
     overflow-y: auto;
+    padding-bottom: 100px;
 }
 
 .sidebar-btn {
@@ -37,7 +38,7 @@
 
 .sidebar-btn.active {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-    border-color: rgba(102, 126, 234, 0.5);
+    border-color: rgba(0, 0, 0, 0);
     color: #fff;
 }
 
@@ -94,11 +95,11 @@
 /* Syncfusion Button overrides for sidebar */
 .left-sidebar .e-btn.sidebar-btn {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: row; */
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 12px 8px;
+    padding: 9px 8px;
     width: 100%;
     border: 1px solid #D5D5D5;
     background: #e3e3e3;
@@ -107,28 +108,32 @@
     cursor: pointer;
     transition: all 0.2s ease;
     font-size: 11px;
-    font-weight: 500;
+    /* font-weight: 500; */
     line-height: 1.2;
     text-align: center;
 }
+.left-sidebar .e-btn.sidebar-btn:focus {
+    box-shadow: 0 0 0 1px rgba(130.05, 137.7, 144.5, 0.5) !important;
+}
 
 .left-sidebar .e-btn.sidebar-btn:hover:not(.e-disabled) {
-    background: #EEEEEE;
+    background: rgb(86.4,93.6,100);
     transform: translateX(2px);
+    color: #e3e3e3;
 }
 .left-sidebar .e-btn.sidebar-btn:active:not(.e-disabled) {
-    background: #0078d4;
+    background: rgb(86.4,93.6,100);
     color: #ffffff;
     transform: translateX(2px);
 }
 .left-sidebar .e-btn.sidebar-btn.active:hover {
-    background: #0078d4;
+    background: rgb(86.4,93.6,100);
     color: #ffffff;
 }
 
 .left-sidebar .e-btn.sidebar-btn.active {
-    background: #0078d4;
-    border-color: rgba(102, 126, 234, 0.5);
+    background: rgb(86.4, 93.6, 100);
+    border-color: rgba(0, 0, 0, 0);
     color: #ffffff;
 }
 
@@ -144,6 +149,6 @@
 }
 
 .left-sidebar .e-btn.sidebar-btn .sidebar-label {
-    font-size: 11px;
+    font-size: 16px;
     white-space: nowrap;
 }

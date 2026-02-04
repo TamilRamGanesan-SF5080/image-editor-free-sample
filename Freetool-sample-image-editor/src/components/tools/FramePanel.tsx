@@ -53,10 +53,10 @@ export const FramePanel = ({ editorRef }: ToolPanelProps) => {
                             key={frame.type}
                             cssClass={`filter-btn ${activeFrame === frame.type ? 'active' : ''}`}
                             onClick={() => applyFrame(frame.type)}
+                            iconCss={`e-icons ${frame.iconClass}`}
                             title={frame.description}
                         >
-                            <span className={`filter-icon e-icons ${frame.iconClass}`} aria-hidden="true" />
-                            <span className="filter-name">{frame.type}</span>
+                        {frame.type}
                         </ButtonComponent>
                     ))}
                 </div>
